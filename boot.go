@@ -19,25 +19,23 @@ func main() {
 		processDir = "."
 	}
 
+	println(processDir)
+
 	err := filepath.Walk(processDir, func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() {
 			return nil
 		}
-		fullName := ""
-		if processDir == "." {
-			fullName = fmt.Sprintf("%v/%v", path, info.Name())
-
-		} else {
-			fullName = fmt.Sprintf("%v/%v/%v", processDir, path, info.Name())
-		}
-		if filepath.Ext(path) == "js" {
+		fullName := path
+		// fullName = fmt.Sprintf("%v/%v", path, info.Name())
+		println(fullName)
+		if filepath.Ext(info.Name()) == ".js" {
 			// process js
 			println(fmt.Sprintf("开始处理: %v", fullName))
 			appendLine("dist.js", fmt.Sprintf("// processed by wenlai file : %s", info.Name()))
 			appendLine("dist.js", readStr(fullName))
 			return nil
 		}
-		if filepath.Ext(path) == "css" {
+		if filepath.Ext(info.Name()) == ".css" {
 			// process css
 			println(fmt.Sprintf("开始处理: %v", fullName))
 			appendLine("dist.css", fmt.Sprintf("/*! processed by wenlai file : %s */", info.Name()))
