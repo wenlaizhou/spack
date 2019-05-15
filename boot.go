@@ -33,12 +33,14 @@ func main() {
 		if filepath.Ext(path) == "js" {
 			// process js
 			println(fmt.Sprintf("开始处理: %v", fullName))
+			appendLine("dist.js", fmt.Sprintf("// processed by wenlai file : %s", info.Name()))
 			appendLine("dist.js", readStr(fullName))
 			return nil
 		}
 		if filepath.Ext(path) == "css" {
 			// process css
 			println(fmt.Sprintf("开始处理: %v", fullName))
+			appendLine("dist.css", fmt.Sprintf("/*! processed by wenlai file : %s */", info.Name()))
 			appendLine("dist.css", readStr(fullName))
 			return nil
 		}
